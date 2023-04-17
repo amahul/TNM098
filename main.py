@@ -60,41 +60,38 @@ datatwo=np.array(datatwo)
 
 #X, _ = make_classification(n_samples=1000, n_features=2, n_informative=2, n_redundant=0, n_clusters_per_class=1, random_state=4)
 # define the model
-model = KMeans(n_clusters=6)
-# fit the model
-# model.fit(datatwo)
+model = KMeans(n_clusters=7)
+
 # assign a cluster to each example
-# yhat = model.predict(datatwo)
 yhat = model.fit_predict(datatwo)
 # retrieve unique clusters
 clusters = unique(yhat)
 # create scatter plot for samples from each cluster
 
-
-
 for cluster in clusters:
     # get row indexes for samples with this cluster
     row_ix = where(yhat == cluster)[0]
-    
-    x = np.mean(datatwo[row_ix][0])
-    y = np.mean(datatwo[row_ix][1])
+
     for i in row_ix:        
         # print(type)
         data[i].addCluster(cluster)
-        data[i].x = x
-        data[i].y= y
+        # data[i].x = x
+        # data[i].y= y
         
 
 for line in data:   
     plt.scatter(line.index, line.cluster,c=cluster_color[line.cluster], cmap='plasma', alpha=0.5, vmin=0, vmax=800)
+    
+plt.show()
 
+for line in data: 
+    plt.scatter(line.x, line.y,c=cluster_color[line.cluster])
 
 
 plt.show()
 
 # show the plot
 # plt.show()
-
 
 
 

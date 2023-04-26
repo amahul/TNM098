@@ -1,0 +1,2 @@
+const IMAGE_WIDTH = 980
+const IMAGE_HEIGHT = 550

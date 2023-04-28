@@ -7,3 +7,20 @@
     flex-direction: column;   
     
 }
+
+
+#slider_parent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#min_choosen{
+position:fixed;
+left: 42px
+}
+
+#max_choosen{
+    position:fixed;
+    left: 342px
+}

@@ -13,87 +13,71 @@ function readJson(filename) {
   });
 }
 
+function createSlider() {
+  const derrive = 300 / (MAX_RANGE-MIN_RANGE);
+  const choosenMinRange = (MIN_RANGE-MIN_RANGE)*derrive;
+  const choosenMaxRange = (MAX_RANGE-MIN_RANGE)*derrive;
 
-function createSlider(minRange, maxRange) {
-  
-  
-  const derrive = 300 / (maxRange-minRange);
-  console.log(new Date(minRange));
-  console.log(new Date(maxRange));
-  
-  choosenMinRange = (minRange-minRange)*derrive;
-  choosenMaxRange = (maxRange-minRange)*derrive 
+  // Create an SVG container
+  const svg = d3.select("#slider")
+    .append("svg")
+    .attr("width", 320)
+    .attr("height", 100);
 
-  console.log(choosenMin);
-  console.log(choosenMaxRange);
+  document.getElementById('start_date').innerHTML = "0"+MIN_DATE.getDate() + "/" + MIN_DATE.getMonth()+1 + " |";
+  document.getElementById('end_date').innerHTML = "| " + MAX_DATE.getDate() + "/" + MAX_DATE.getMonth()+1 ; 
+  const min_choosenID= document.getElementById('min_choosen');
+  const max_choosenID= document.getElementById('max_choosen');
+  min_choosenID.innerHTML= "0"+MIN_DATE.getDate() + "/" + MIN_DATE.getMonth()+1;
+  max_choosenID.innerHTML=  MAX_DATE.getDate() + "/" + MAX_DATE.getMonth()+1 ; 
+
+  // Define the slider handles
+  const handle1 = svg.append("circle")
+    .attr("r", 10)
+    .attr("cx", 50)
+    .attr("cy", 50)
+    .call(d3.drag().on("drag", handle1Dragged).on("end", updateValues));
 
 
-  date1 = new Date((5/derrive)+minRange);
-  console.log(date1);
+  const handle2 = svg.append("circle")
+    .attr("r", 10)
+    .attr("cx", 350)
+    .attr("cy", 50)
+    .call(d3.drag().on("drag", handle2Dragged).on("end", updateValues));
 
-  date2 = new Date((200/derrive)+minRange);
-  console.log(date2);
-  
-    
-    // Create an SVG container
-    var svg = d3.select("#slider")
-        .append("svg")
-        .attr("width", 400)
-        .attr("height", 100);
+  // Define the initial positions of the handles
+  let handle1Value = choosenMinRange;
+  let handle2Value = choosenMaxRange;
+  updateHandles();
 
-    
-    // Define the slider handles
-    var handle1 = svg.append("circle")
-        .attr("r", 10)
-        .attr("cx", 50)
-        .attr("cy", 50)
-        .call(d3.drag().on("drag", handle1Dragged).on("end", updateValues));
+  // Define the behavior of handle1 when dragged
+  function handle1Dragged() {
+    handle1Value = Math.max(choosenMinRange, Math.min(choosenMaxRange, d3.event.x));
+    updateHandles();        
+  }
 
-    
-    var handle2 = svg.append("circle")
-        .attr("r", 10)
-        .attr("cx", 350)
-        .attr("cy", 50)
-        .call(d3.drag().on("drag", handle2Dragged).on("end", updateValues));
-
-    // Define the initial positions of the handles
-    var handle1Value = choosenMinRange;
-    var handle2Value = choosenMaxRange;
+  // Define the behavior of handle2 when dragged
+  function handle2Dragged() {
+    handle2Value = Math.max(choosenMinRange, Math.min(choosenMaxRange, d3.event.x));
     updateHandles();
+  }
 
-    // Define the behavior of handle1 when dragged
-    function handle1Dragged() {
-        handle1Value = Math.max(choosenMinRange, Math.min(choosenMaxRange, d3.event.x));
-        updateHandles();        
-    }
+  // Update the positions of the handles and the slider range
+  function updateHandles() {
+    handle1.attr("cx", handle1Value+10);
+    handle2.attr("cx", handle2Value+10);
 
-    // Define the behavior of handle2 when dragged
-    function handle2Dragged() {
-        handle2Value = Math.max(choosenMinRange, Math.min(choosenMaxRange, d3.event.x));
-        updateHandles();
-    }
+    min_choosenID.innerHTML=  new Date((handle1Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle1Value/derrive)+MIN_RANGE).getMonth()+1 ; 
+    max_choosenID.innerHTML=  new Date((handle2Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle2Value/derrive)+MIN_RANGE).getMonth()+1 ; 
+    min_choosenID.style.left= handle1Value+ 42+ 'px';
+    max_choosenID.style.left= handle2Value+42+ 'px';
+  }
 
-    // Update the positions of the handles and the slider range
-    function updateHandles() {
-        handle1.attr("cx", handle1Value);
-        handle2.attr("cx", handle2Value);
-
-        // Display the current range values to the user
-        d3.select("#sliderValue1").text(handle1Value);
-        d3.select("#sliderValue2").text(handle2Value);        
-    }
-    
     function updateValues(){
-      console.log(handle1Value)
-      console.log(handle2Value)
-      const date1 = (handle1Value+choosenMin)/derrive;
-      console.log(date1);
-
-      const date2= (handle2Value+choosenMaxRange)*derrive;
-      
-      console.log(date2);
+    choosenfirstDate = new Date((handle1Value/derrive)+MIN_RANGE);
+    choosenlastDate = new Date((handle2Value/derrive)+MIN_RANGE);
+    filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
     }
-
 }
 
 function drawImage(){
@@ -127,4 +111,26 @@ function drawImage(){
     .attr("r", d => d.r)
     .attr("fill", "purple");
     
+}
+
+function changeCCcheckbox(){
+  
+  var checkBox = document.getElementById("CC_checkbox");
+
+  if (checkBox.checked == true){
+    showCC=true;
+  } else {
+    showCC=false;
+  }
+  filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
+}
+
+function changeLCcheckbox(){
+  var checkBoxLC = document.getElementById("LC_checkbox");
+  if (checkBoxLC.checked == true){
+    showLC=true;
+  } else {
+    showLC = false;
+  }
+  filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
 }

@@ -96,18 +96,11 @@ function createSlider() {
     handle2.attr("cx", handle2Value + 10);
     line2.attr("x1", handle1Value).attr("x2", handle2Value);
 
-    min_choosenID.innerHTML =
-      new Date(handle1Value / derrive + MIN_RANGE).getDate() +
-      "/" +
-      new Date(handle1Value / derrive + MIN_RANGE).getMonth() +
-      1;
-    max_choosenID.innerHTML =
-      new Date(handle2Value / derrive + MIN_RANGE).getDate() +
-      "/" +
-      new Date(handle2Value / derrive + MIN_RANGE).getMonth() +
-      1;
-    min_choosenID.style.left = handle1Value + 65 + "px";
-    max_choosenID.style.left = handle2Value + 65 + "px";
+    min_choosenID.innerHTML=  new Date((handle1Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle1Value/derrive)+MIN_RANGE).getMonth()+1 ; 
+    max_choosenID.innerHTML=  new Date((handle2Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle2Value/derrive)+MIN_RANGE).getMonth()+1 ; 
+    min_choosenID.style.left= handle1Value+ 65+ 'px';
+    max_choosenID.style.left= handle2Value+65+ 'px';
+    updateValues();
   }
 
   function updateValues() {

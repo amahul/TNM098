@@ -46,23 +46,27 @@ function filterData(datacc, datalc, startTime, endTime) {
       return timestamp >= startTime && timestamp <= endTime;
     });
 
-    // filteredData = dummy.concat(dummy2);
-    filteredData = dummy    
-  } else if (showCC) {    
-    filteredData = ccData.filter((item) => {
+    filteredData = dummy.concat(dummy2);
+  }
+  else if(showCC){
+    filteredData =ccData.filter(item => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
-    });
-  } else if (showLC) {    
-    filteredData = loyaltyData.filter((item) => {
-      const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
+      return (timestamp >= startTime  && timestamp <= endTime)     
     });
   }
-  console.log(filteredData)
+  else if(showLC){
+    filteredData= loyaltyData.filter(item => {
+      const timestamp = parseInt(new Date(item.timestamp).getTime());
+      return (timestamp >= startTime  && timestamp <= endTime)     
+    });
+   
+  }
+  else{
+    filteredData=[];
+  }
+  
 
-  drawDataPoints()
- 
+console.log(filteredData);
 }
 
 function countPlaces(data) {

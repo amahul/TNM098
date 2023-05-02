@@ -84,10 +84,10 @@ input[type=checkbox]:checked:after {
     width: 450px;
     justify-content: flex-end;
 }
-
+/* 
 circle{
     fill: rgb(135, 78, 78);
-}
+} */
 
 .line_grey{
     position:fixed; 

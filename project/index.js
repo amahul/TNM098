@@ -1,9 +1,3 @@
-getDataAndProceed();
-
-drawImage();
-
-
-
 var ccData = []
 var loyaltyData = []
 var filteredData=[]
@@ -11,6 +5,11 @@ var showCC=true;
 var showLC=true;
 choosenlastDate=MIN_DATE;
 choosenfirstDate=MAX_DATE;
+
+getDataAndProceed();
+
+drawImage();
+
 
 async function getDataAndProceed() {
   try {
@@ -20,12 +19,6 @@ async function getDataAndProceed() {
     var carData = await readJson('/car_ass.json');
     
     createSlider();
-   
-
-    //filteredData = filterData(ccData, loyaltyData,true, true, startTime=timestart, endTime=timeend);
-    //console.log(filteredData);
-    //countPlaces(filteredData);
-
   } catch (error) {
     // Handle any errors that may occur
     console.error(error);

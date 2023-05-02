@@ -22,28 +22,49 @@ function createSlider() {
   const svg = d3.select("#slider")
     .append("svg")
     .attr("width", 320)
-    .attr("height", 100);
+    .attr("height", 20);
 
-  document.getElementById('start_date').innerHTML = "0"+MIN_DATE.getDate() + "/" + MIN_DATE.getMonth()+1 + " |";
-  document.getElementById('end_date').innerHTML = "| " + MAX_DATE.getDate() + "/" + MAX_DATE.getMonth()+1 ; 
+  document.getElementById('start_date').innerHTML = "0"+MIN_DATE.getDate() + "/" + MIN_DATE.getMonth()+1;
+  document.getElementById('end_date').innerHTML =  MAX_DATE.getDate() + "/" + MAX_DATE.getMonth()+1 ; 
   const min_choosenID= document.getElementById('min_choosen');
   const max_choosenID= document.getElementById('max_choosen');
   min_choosenID.innerHTML= "0"+MIN_DATE.getDate() + "/" + MIN_DATE.getMonth()+1;
   max_choosenID.innerHTML=  MAX_DATE.getDate() + "/" + MAX_DATE.getMonth()+1 ; 
 
+
+  const line1= svg.append("line")
+  .attr("x1", 1)
+  .attr("x2", 320)
+  .attr("y1", 10)
+  .attr("y2", 10)
+  .style("stroke", "black")
+  .style("stroke-width", "4px")
+
+  const line2= svg.append("line")
+  .attr("x1", 1)
+  .attr("x2", 320)
+  .attr("y1", 10)
+  .attr("y2", 10)
+  .style("stroke", "rgb(135, 78, 78)")
+  .style("stroke-width", "6px")
+//stroke-widthstroke-width: 10px;
+//    stroke: aliceblue;
+
   // Define the slider handles
   const handle1 = svg.append("circle")
     .attr("r", 10)
     .attr("cx", 50)
-    .attr("cy", 50)
+    .attr("cy", 10)
     .call(d3.drag().on("drag", handle1Dragged).on("end", updateValues));
 
 
   const handle2 = svg.append("circle")
     .attr("r", 10)
     .attr("cx", 350)
-    .attr("cy", 50)
+    .attr("cy", 10)
     .call(d3.drag().on("drag", handle2Dragged).on("end", updateValues));
+
+  
 
   // Define the initial positions of the handles
   let handle1Value = choosenMinRange;
@@ -66,11 +87,12 @@ function createSlider() {
   function updateHandles() {
     handle1.attr("cx", handle1Value+10);
     handle2.attr("cx", handle2Value+10);
+    line2.attr("x1", handle1Value).attr("x2", handle2Value)
 
     min_choosenID.innerHTML=  new Date((handle1Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle1Value/derrive)+MIN_RANGE).getMonth()+1 ; 
     max_choosenID.innerHTML=  new Date((handle2Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle2Value/derrive)+MIN_RANGE).getMonth()+1 ; 
-    min_choosenID.style.left= handle1Value+ 42+ 'px';
-    max_choosenID.style.left= handle2Value+42+ 'px';
+    min_choosenID.style.left= handle1Value+ 65+ 'px';
+    max_choosenID.style.left= handle2Value+65+ 'px';
   }
 
     function updateValues(){

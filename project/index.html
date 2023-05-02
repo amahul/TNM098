@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://d3js.org/d3.v4.min.js"></script>    
     <script defer src="./functions.js"></script>
@@ -19,19 +21,34 @@
       <!-- <img src="./data/MC2-tourist.jpg" width="50%" objectFit="contain"> -->
     </div>
 
-    
+    <div class="filter_footer"> 
+
+      <div> 
     <p id="min_choosen"> </p>
     <p id="max_choosen"> </p>
-
     <div id="slider_parent"> 
-      <p id="start_date"> </p>
-      <div id="slider" style="padding:1px" ></div>
-      <p id="end_date"> </p>
-      <input type="checkbox" id="CC_checkbox" onclick="changeCCcheckbox()" checked>
-      <p> Credit Card </p>
-      <input type="checkbox" id="LC_checkbox" onclick="changeLCcheckbox()" checked>
-      <p> Loyalty Card </p>
+      
+      <h3 id="start_date"> </h3>
+     
+      <div id="slider" style="padding:1px" >
+       
+      </div>
+      <h3 id="end_date"> </h3>
+       
     </div>
+  </div>
+
+  <h1> Filter the data </h1>
+
+    <div class="checkboxes"> 
+      <input type="checkbox" id="CC_checkbox" onclick="changeCCcheckbox()" checked>
+      <h3> Credit Card </h3>
+      <input type="checkbox" id="LC_checkbox" onclick="changeLCcheckbox()" checked>
+      <h3> Loyalty Card </h3>
+    </div>
+
+
+  </div>
 
   </body>
 </html>

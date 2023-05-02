@@ -40,7 +40,6 @@ function filterData(datacc, datalc, startTime, endTime ) {
     });
 
     filteredData = dummy.concat(dummy2);
- 
   }
   else if(showCC){
     filteredData =ccData.filter(item => {
@@ -54,6 +53,9 @@ function filterData(datacc, datalc, startTime, endTime ) {
       return (timestamp >= startTime  && timestamp <= endTime)     
     });
    
+  }
+  else{
+    filteredData=[];
   }
   
 

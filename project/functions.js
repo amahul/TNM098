@@ -93,6 +93,7 @@ function createSlider() {
     max_choosenID.innerHTML=  new Date((handle2Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle2Value/derrive)+MIN_RANGE).getMonth()+1 ; 
     min_choosenID.style.left= handle1Value+ 65+ 'px';
     max_choosenID.style.left= handle2Value+65+ 'px';
+    updateValues();
   }
 
     function updateValues(){

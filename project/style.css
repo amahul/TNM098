@@ -85,10 +85,19 @@ input[type=checkbox]:checked:after {
     justify-content: flex-end;
 }
 
-circle{
-    fill: rgb(135, 78, 78);
-}
 
 .line_grey{
     position:fixed; 
+}
+
+.meny{
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.meny a{
+    margin-left: 10px;
+    margin-right: 10px;
 }

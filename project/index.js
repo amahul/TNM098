@@ -14,10 +14,8 @@ drawImage();
 async function getDataAndProceed() {
   try {
     ccData = await readJson('/cc_data.json');
-    var gpsData = await readJson('/gps.json');
     loyaltyData = await readJson('/loyalty_data.json');
-    var carData = await readJson('/car_ass.json');
-    
+
     createSlider();
   } catch (error) {
     // Handle any errors that may occur
@@ -27,8 +25,6 @@ async function getDataAndProceed() {
 
 
 function filterData(datacc, datalc, startTime, endTime ) {
-  
-  
   if(showCC && showLC){
     dummy= ccData.filter(item => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
@@ -52,13 +48,10 @@ function filterData(datacc, datalc, startTime, endTime ) {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
       return (timestamp >= startTime  && timestamp <= endTime)     
     });
-   
   }
   else{
     filteredData=[];
   }
-  
-
 console.log(filteredData);
 }
 

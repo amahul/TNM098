@@ -12,6 +12,7 @@ function readJson(filename) {
     );
   });
 }
+
 function createSlider() {
   const derrive = 300 / (MAX_RANGE-MIN_RANGE);
   const choosenMinRange = (MIN_RANGE-MIN_RANGE)*derrive;
@@ -63,8 +64,6 @@ function createSlider() {
     .attr("cy", 10)
     .call(d3.drag().on("drag", handle2Dragged).on("end", updateValues));
 
-  
-
   // Define the initial positions of the handles
   let handle1Value = choosenMinRange;
   let handle2Value = choosenMaxRange;
@@ -98,7 +97,7 @@ function createSlider() {
     function updateValues(){
     choosenfirstDate = new Date((handle1Value/derrive)+MIN_RANGE);
     choosenlastDate = new Date((handle2Value/derrive)+MIN_RANGE);
-    filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
+    filterData(choosenfirstDate, choosenlastDate);
     }
 }
 
@@ -116,43 +115,14 @@ function drawImage(){
     .attr("width", IMAGE_WIDTH)
     .attr("height", IMAGE_HEIGHT);
 
-  // Define some data points
-  const data = [
-    { x: 100, y: 100, r: 3 },
-    { x: 200, y: 200, r: 5 },
-    { x: 300, y: 300, r: 10 }
-  ];
-
   // Bind the data to circle elements
   svg.selectAll("circle")
-    .data(data)
+    .data(filteredData)
     .enter()
     .append("circle")
-    .attr("cx", d => d.x)
-    .attr("cy", d => d.y)
-    .attr("r", d => d.r)
-    .attr("fill", "purple");
-    
-}
-
-function changeCCcheckbox(){
-  
-  var checkBox = document.getElementById("CC_checkbox");
-
-  if (checkBox.checked == true){
-    showCC=true;
-  } else {
-    showCC=false;
-  }
-  filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
-}
-
-function changeLCcheckbox(){
-  var checkBoxLC = document.getElementById("LC_checkbox");
-  if (checkBoxLC.checked == true){
-    showLC=true;
-  } else {
-    showLC = false;
-  }
-  filterData(ccData, loyaltyData, choosenfirstDate, choosenlastDate);
+    .attr("cx", d => (d.lat-MIN_LAT)*1000*MAPX)
+    .attr("cy", d => (d.long-MIN_LONG)*1000*MAPY)
+    .attr("r", 1)
+    .attr("fill", "purple")
+    .attr("opacity", "0.1");
 }

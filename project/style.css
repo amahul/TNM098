@@ -80,14 +80,6 @@ input[type="checkbox"]:checked:after {
   width: 450px;
   justify-content: flex-end;
 }
-/* 
-circle{
-    fill: rgb(135, 78, 78);
-} */
-
-.line_grey {
-  position: fixed;
-}
 
 #tooltip {
   position: absolute;
@@ -96,4 +88,19 @@ circle{
   min-height: 40px;
   background-color: greenyellow;
   border-radius: 7px;
+}
+.line_grey {
+  position: fixed;
+}
+
+.meny {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.meny a {
+  margin-left: 10px;
+  margin-right: 10px;
 }

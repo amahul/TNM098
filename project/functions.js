@@ -9,7 +9,6 @@ function readJson(filename) {
     });
   });
 }
-
 function createSlider() {
   const derrive = 300 / (MAX_RANGE - MIN_RANGE);
   const choosenMinRange = (MIN_RANGE - MIN_RANGE) * derrive;

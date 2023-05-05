@@ -10,11 +10,11 @@ choosenfirstDate = MAX_DATE;
 
 drawImage();
 
-getDataAndProceed().then(result => {
+getDataAndProceed().then((result) => {
   console.log(result); // logs "done"
 
-  // Run filterdata after getDataAndProceed done  
-  filterData([], [], MIN_RANGE, MAX_RANGE)
+  // Run filterdata after getDataAndProceed done
+  filterData([], [], MIN_RANGE, MAX_RANGE);
 });
 
 async function getDataAndProceed() {
@@ -25,18 +25,15 @@ async function getDataAndProceed() {
     var carData = await readJson("./car_ass.json");
 
     createSlider();
-    return ccData
-     
+    return ccData;
   } catch (error) {
     // Handle any errors that may occur
     console.error(error);
   }
-  
 }
 
 function filterData(datacc, datalc, startTime, endTime) {
-  
-  if (showCC && showLC) {    
+  if (showCC && showLC) {
     dummy = ccData.filter((item) => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
       return timestamp >= startTime && timestamp <= endTime;
@@ -47,28 +44,23 @@ function filterData(datacc, datalc, startTime, endTime) {
     });
 
     filteredData = dummy.concat(dummy2);
-  }
-  else if(showCC){
-    filteredData =ccData.filter(item => {
+  } else if (showCC) {
+    filteredData = ccData.filter((item) => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return (timestamp >= startTime  && timestamp <= endTime)     
+      return timestamp >= startTime && timestamp <= endTime;
     });
-  }
-  else if(showLC){
-    filteredData= loyaltyData.filter(item => {
+  } else if (showLC) {
+    filteredData = loyaltyData.filter((item) => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return (timestamp >= startTime  && timestamp <= endTime)     
+      return timestamp >= startTime && timestamp <= endTime;
     });
-   
-  }
-  else{
-    filteredData=[];
+  } else {
+    filteredData = [];
   }
 
-  drawDataPoints()
-  
+  drawDataPoints();
 
-console.log(filteredData);
+  console.log(filteredData);
 }
 
 function countPlaces(data) {

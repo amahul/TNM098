@@ -96,10 +96,18 @@ function createSlider() {
     handle2.attr("cx", handle2Value + 10);
     line2.attr("x1", handle1Value).attr("x2", handle2Value);
 
-    min_choosenID.innerHTML=  new Date((handle1Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle1Value/derrive)+MIN_RANGE).getMonth()+1 ; 
-    max_choosenID.innerHTML=  new Date((handle2Value/derrive)+MIN_RANGE).getDate() + "/" + new Date((handle2Value/derrive)+MIN_RANGE).getMonth()+1 ; 
-    min_choosenID.style.left= handle1Value+ 65+ 'px';
-    max_choosenID.style.left= handle2Value+65+ 'px';
+    min_choosenID.innerHTML =
+      new Date(handle1Value / derrive + MIN_RANGE).getDate() +
+      "/" +
+      new Date(handle1Value / derrive + MIN_RANGE).getMonth() +
+      1;
+    max_choosenID.innerHTML =
+      new Date(handle2Value / derrive + MIN_RANGE).getDate() +
+      "/" +
+      new Date(handle2Value / derrive + MIN_RANGE).getMonth() +
+      1;
+    min_choosenID.style.left = handle1Value + 65 + "px";
+    max_choosenID.style.left = handle2Value + 65 + "px";
     updateValues();
   }
 
@@ -174,26 +182,37 @@ function drawDataPoints() {
     .enter()
     .append("circle")
     .attr("cx", (d) => d.x)
-    .attr("class", "data_point")
+    .attr("class", "circle")
     .attr("cy", (d) => d.y)
     .attr("r", (d) => linearScale(d.amount))
-    .attr("fill", "blue")    
+    .attr("fill", "blue")
     .attr("opacity", 0.5)
-    .on("click", function (d) {
-      locationClick(d)
-    });
+    .attr("id", function (d, i) {
+      return "circle_" + i;
+    })
+    .on("click", function (d, i) {
+      locationClick(d, i)
+    })
+    .on("mouseover", function(d) {
+      // Increase the node size on hover using a transition
+      d3.select(this)
+        .transition()
+        .attr("r", linearScale(d.amount) * 1.5);
+    })       
+    .on("mouseout", function(d) {
+      // Reset the node size on mouseout using a transition
+      d3.select(this)
+        .transition()
+        .attr("r", linearScale(d.amount));
+    });;
 }
 
-function locationClick(d){
+function locationClick(d, i) {
+  d3.selectAll(".circle").attr("fill", "blue");
 
-  console.log(d)
+  d3.select(`#circle_${i}`).attr("fill", "red");
   
-
-  d3.selectAll(`circles`).attr("fill", "pink")
-
-
   drawScatterPlot(d.location);
-
 }
 
 function changeCCcheckbox() {
@@ -234,92 +253,4 @@ function getLocationSize() {
   });
 
   return res;
-}
-
-/**
- * Function to draw a scatter plot under the map with data from selected locations
- *
- * @param {*} location
- */
-function drawScatterPlot(location) {
-  // Remove old scatter plot
-  d3.select("#scatter_plot").remove();
-
-  // Define an array of data points
-  const data = filteredData.filter((item) => item.location == location);
-  console.log(data);
-
-  const width = 1200;
-  const height = 500;
-  const margin = { top: 100, right: 20, bottom: 50, left: 100 };
-  const innerWidth = width - margin.left - margin.right;
-  const innerHeight = height - margin.top - margin.bottom;
-
-  // Convert timestamp strings to Date objects and number values
-  // const parseDate = d3.timeParse("%d-%m-%YT%H:%M:%S.%LZ");
-  const xValues = data.map((d) => new Date(d.timestamp).getDate());
-  const yValues = data.map((d) => getTimeOfDay(new Date(d.timestamp)));
-  console.log(xValues);
-  console.log(yValues);
-
-  // Set up scales
-  const xScale = d3
-    .scaleLinear()
-    .domain(d3.extent(xValues))
-    .range([margin.left, width - margin.right]);
-
-  // const yScale = d3
-  //   .scaleLinear()
-  //   .domain(d3.extent(yValues))
-  //   .range([height - margin.bottom, margin.top]);
-
-  // Define the y scale using a time scale
-  const yScale = d3
-    .scaleTime()
-    .domain([new Date("2000-01-01T00:00:00"), new Date("2000-01-01T23:59:59")])
-    .range([height, 0]);
-
-  // Define the y axis
-  const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%I:%M %p"));
-
-  // Create the SVG element
-  const svg = d3
-    .select("body")
-    .append("svg")
-    .attr("id", "scatter_plot")
-    .attr("width", width)
-    .attr("height", height);
-
-  // Add circles
-  svg
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", (d) => xScale(new Date(d.timestamp).getDate()))
-    // .attr("cy", (d) => yScale(getTimeOfDay(new Date(d.timestamp))))
-    .attr("cy", (d) => yScale(new Date(`2000-01-01T${getTimeOfDay(new Date(d.timestamp))}`)))
-    .attr("r", 5)
-    .attr("fill", "steelblue");
-
-  // Add x-axis
-  svg
-    .append("g")
-    .attr("transform", `translate(0, ${height - margin.bottom})`)
-    .call(d3.axisBottom(xScale));
-
-  // Add y-axis
-  svg
-    .append("g")
-    .attr("transform", `translate(${margin.left}, 0)`)
-    .call(d3.axisLeft(yScale));
-}
-
-function getTimeOfDay(date) {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  const milliseconds = date.getMilliseconds();
-  const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
-  return timeString;
 }

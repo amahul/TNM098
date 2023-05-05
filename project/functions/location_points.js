@@ -36,9 +36,13 @@ function drawDataPoints() {
     .data(locationSize)
     .enter()
     .append("circle")
-    .attr("cx", (d) => d.x)
+    .attr("cx", function (d) {
+      return d.x;
+    })
     .attr("class", "circle")
-    .attr("cy", (d) => d.y)
+    .attr("cy", function (d) {
+      return d.y;
+    })
     .attr("r", (d) => linearScale(d.amount))
     .attr("fill", "blue")
     .attr("opacity", 0.5)
@@ -53,10 +57,12 @@ function drawDataPoints() {
       d3.select(this)
         .transition()
         .attr("r", linearScale(d.amount) * 1.5);
+      showAmount(d);
     })
     .on("mouseout", function (d) {
       // Reset the node size on mouseout using a transition
       d3.select(this).transition().attr("r", linearScale(d.amount));
+      hideAmount();
     });
 }
 
@@ -71,4 +77,21 @@ function locationClick(d, i) {
   d3.select(`#circle_${i}`).attr("fill", "red");
 
   drawScatterPlot(d.location);
+}
+
+/**
+ * Function to show amount next to circle
+ * @param {*} d - the cirle
+ * @param {*} i - index of circle
+ */
+function showAmount(d) {
+  d3.select("#amount_text")
+    .text("Amount: " + d.amount)
+    .style("display", "block")
+    .style("left", d.x + 20 + "px")
+    .style("top", d.y - 50 + "px");
+}
+
+function hideAmount() {
+  d3.select("#amount_text").style("display", "none");
 }

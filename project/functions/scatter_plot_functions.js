@@ -5,7 +5,8 @@
  */
 function drawScatterPlot(location) {
   // Remove old scatter plot
-  d3.select("#scatter_plot").remove();
+  let sp = d3.select("#scatter_plot");
+  sp.select("#svg").remove();
 
   // Define an array of data points
   const data = filteredData.filter((item) => item.location == location);
@@ -46,11 +47,10 @@ function drawScatterPlot(location) {
   });
 
   // Create the SVG element
-  const svg = d3
-    .select("body")
+  const svg = sp
     .append("svg")
-    .attr("id", "scatter_plot")
     .attr("width", width)
+    .attr("id", "svg")
     .attr("height", height);
 
   // Add circles
@@ -63,13 +63,17 @@ function drawScatterPlot(location) {
     .attr("cy", (d) => yScale(timeParser(getTimeOfDay(new Date(d.timestamp)))))
     .attr("r", 5)
     .attr("fill", "steelblue")
-    .on("click", function (d, i) {
+    .on("mouseover", function (d) {
       // console.log(d)
       showPopup(
-        d,        
+        d,
         xScale(new Date(d.timestamp).getDate()),
         yScale(timeParser(getTimeOfDay(new Date(d.timestamp))))
       );
+    })
+    .on("mouseout", function (d) {
+      // console.log(d)
+      hidePopup();
     });
 
   // Add x-axis
@@ -87,27 +91,24 @@ function drawScatterPlot(location) {
  * @param {*} d
  */
 function showPopup(d, x, y) {
-  // Get the bounding rectangle of the clicked node
-  // var rect = this.getBoundingClientRect();
-  let node = d3.select(d);
-//   console.log(d.attr("cx"));
-
-  // Create a new div element for the popup
   var popup = d3.select("#tooltip");
 
+  popup
+    .style("display", "block")
+    .style("left", x + 20 + "px")
+    .style("top", y - 50 + "px");
+
+  popup.append("text").text("Card: " + d.last4ccnum + "\n Price: " + d.price);
+}
+
+/**
+ * Hide popup on mouseout
+ */
+function hidePopup() {
+  var popup = d3.select("#tooltip");
   popup.selectAll("*").remove();
 
-  popup.append("text").text("Card: " + d.last4ccnum);
-
-  popup.className = "popup";
-  popup.textContent = "Node " + d.id;
-
-  // Position the popup next to the clicked node
-  popup.style.left = x + 10 + "px";
-  popup.style.top = y + 10 + "px";
-
-  // Append the popup to the body
-  //   document.body.appendChild(popup);
+  popup.style("display", "none");
 }
 
 /**

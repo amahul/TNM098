@@ -4,64 +4,66 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://d3js.org/d3.v4.min.js"></script>    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script defer src="./constants.js"></script>
     <script defer src="./functions/location_points.js"></script>
     <script defer src="./functions/scatter_plot_functions.js"></script>
-    <script defer src="./functions.js"></script>    
+    <script defer src="./functions.js"></script>
     <script defer src="./index.js"></script>
-    
-    
+
     <title>VAST 2021 MP2</title>
   </head>
   <body>
-
-    <div class="meny"> 
+    <div class="meny">
       <a href="index.html">Scatterplot</a>
       <a href="heatmap.html">Heatmap</a>
     </div>
     <div class="wrapper">
-      
-      
-
-
-
-      <div class="canvas"></div>
+      <div class="canvas">
+        <p id="amount_text"></p>
+      </div>
       <!-- <img src="./data/MC2-tourist.jpg" width="50%" objectFit="contain"> -->
     </div>
 
-    <div class="filter_footer"> 
+    <div class="filter_footer">
+      <div>
+        <p id="min_choosen"></p>
+        <p id="max_choosen"></p>
+        <div id="slider_parent">
+          <h3 id="start_date"></h3>
 
-      <div> 
-    <p id="min_choosen"> </p>
-    <p id="max_choosen"> </p>
-    <div id="slider_parent"> 
-      
-      <h3 id="start_date"> </h3>
-     
-      <div id="slider" style="padding:1px" >
-       
+          <div id="slider" style="padding: 1px"></div>
+          <h3 id="end_date"></h3>
+        </div>
       </div>
-      <h3 id="end_date"> </h3>
-       
+
+      <h1>Filter the data</h1>
+
+      <div class="checkboxes">
+        <input
+          type="checkbox"
+          id="CC_checkbox"
+          onclick="changeCCcheckbox()"
+          checked
+        />
+        <h3>Credit Card</h3>
+        <input
+          type="checkbox"
+          id="LC_checkbox"
+          onclick="changeLCcheckbox()"
+          checked
+        />
+        <h3>Loyalty Card</h3>
+      </div>
     </div>
-  </div>
-
-  <h1> Filter the data </h1>
-
-    <div class="checkboxes"> 
-      <input type="checkbox" id="CC_checkbox" onclick="changeCCcheckbox()" checked>
-      <h3> Credit Card </h3>
-      <input type="checkbox" id="LC_checkbox" onclick="changeLCcheckbox()" checked>
-      <h3> Loyalty Card </h3>
+    <div id="scatter_plot">
+      <div id="tooltip"></div>
     </div>
-
-
-  </div>
-  <div id="tooltip"></div>
-
   </body>
 </html>

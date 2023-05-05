@@ -2,6 +2,10 @@ body {
   font-family: "Roboto", serif;
 }
 
+.canvas {
+  position: relative;
+}
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -81,14 +85,32 @@ input[type="checkbox"]:checked:after {
   justify-content: flex-end;
 }
 
+#scatter_plot{
+    position: relative;
+}
+
 #tooltip {
   position: absolute;
   border: 1px solid gray;
   min-width: 40px;
-  min-height: 40px;
+  min-height: 20px;
+  padding: 7px;
   background-color: greenyellow;
   border-radius: 7px;
+  display: none;
 }
+
+#amount_text {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 7px;
+  min-width: 50px;
+  min-height: 20px;
+  position: absolute;
+  padding: 5px;
+  display: none;
+}
+
 .line_grey {
   position: fixed;
 }

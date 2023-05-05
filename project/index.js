@@ -59,13 +59,10 @@ function filterData(datacc, datalc, startTime, endTime) {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
       return (timestamp >= startTime  && timestamp <= endTime)     
     });
-   
   }
   else{
     filteredData=[];
   }
-  
-
 console.log(filteredData);
 }
 

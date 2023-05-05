@@ -44,3 +44,14 @@ const locations = [
     { x: 0.5*IMAGE_WIDTH, y: 0.1*IMAGE_HEIGHT, r: 5, location: "Desafio Golf Course"},
     { x: 0.5*IMAGE_WIDTH, y: 0.1*IMAGE_HEIGHT, r: 0, location: "Daily Dealz"},
   ];
+
+
+const MAX_LONG= 24.90848537;
+const MIN_LONG= 24.82508806;
+const MAX_LAT=36.08995956;
+const MIN_LAT= 36.04802098;
+const DIFFLONG= (MAX_LONG-MIN_LONG)*1000;
+const DIFFLAT= (MAX_LAT-MIN_LAT)*1000;
+
+const MAPX= IMAGE_HEIGHT/DIFFLAT;
+const MAPY= IMAGE_WIDTH/DIFFLONG;

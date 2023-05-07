@@ -63,6 +63,7 @@ function filterData(datacc, datalc, startTime, endTime) {
   else{
     filteredData=[];
   }
+  drawDataPoints()
 console.log(filteredData);
 }
 

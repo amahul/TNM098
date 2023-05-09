@@ -13,7 +13,6 @@ function drawCreditCardPlot(location) {
     (item) => item.location == location && item.last4ccnum != null
   );
 
-  console.log(data)
 
   const width = 1200;
   const height = 500;

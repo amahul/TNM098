@@ -1,5 +1,6 @@
 var ccData = [];
 var loyaltyData = [];
+var carData =[];
 var gpsData = [];
 var filteredData = [];
 var filteredDataGPS = [];
@@ -17,7 +18,7 @@ getDataAndProceed().then((result) => {
 
 async function getDataAndProceed() {
   try {
-    gpsData = await readJson("./gps.json");
+    carData = await readJson("./car_ass.json");
     ccData = await readJson("./cc_data.json");
     gpsData = await readJson("./gps.json");
     loyaltyData = await readJson("./loyalty_data.json");
@@ -71,7 +72,7 @@ function filterData(startTime, endTime, id) {
     }
    
     drawDataPoints();
-  
     drawHeatMap();
+    
   
 }

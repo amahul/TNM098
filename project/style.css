@@ -182,3 +182,16 @@ input[type="checkbox"]:checked:after {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.car_info{
+  display:flex;
+  height: 30px;
+}
+
+.car_info p{
+  font-size: 20px;
+}
+
+#aboutCarID{
+height: 180px;
+}

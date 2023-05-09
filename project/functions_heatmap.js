@@ -219,7 +219,7 @@ function createDropdownMenu() {
   // Create a select element
   let selectElement = document.createElement("select");
   const element1_time = document.getElementById("drop_down");
-
+console.log(carData)
   // Create options from 1 to 20
   for (let i = 1; i <= 35; i++) {
     // Create an option element
@@ -228,11 +228,15 @@ function createDropdownMenu() {
     optionElement.text = i;
 
     // Append the option element to the select element
-    selectElement.appendChild(optionElement);
-  }
+    selectElement.appendChild(optionElement);}
 
   selectElement.addEventListener("change", function(event) {
     choosenID = event.target.value;
+    document.getElementById("car_id").innerHTML= " "+carData[choosenID-1].CarID;
+    document.getElementById("car_name").innerHTML=carData[choosenID-1].FirstName +" " + carData[choosenID-1].LastName ;
+    
+    document.getElementById("car_type").innerHTML= " "+carData[choosenID-1].CurrentEmploymentType;
+    document.getElementById("car_title").innerHTML= " "+carData[choosenID-1].CurrentEmploymentTitle;
     filterData(choosenfirstdate, choosenlastdate,choosenID);
   });
 

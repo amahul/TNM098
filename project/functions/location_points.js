@@ -29,7 +29,6 @@ function drawDataPoints() {
     item.y = index.y;
   });
 
-  console.log(locationSize)
   let svg = d3.select("#img_svg");
 
   // Bind the data to circle elements
@@ -106,7 +105,6 @@ function hideAmount() {
  */
 function getLocationSize() {
   let res = [];
-  console.log(filteredData)
   filteredData.map((item) => {
     let index = res.findIndex((obj) => obj.location === item.location);
 

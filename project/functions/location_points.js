@@ -56,12 +56,14 @@ function drawDataPoints() {
       // Increase the node size on hover using a transition
       d3.select(this)
         .transition()
-        .attr("r", linearScale(d.amount) * 1.5);
+        .attr("r", linearScale(d.amount) * 1.5)
+        .style("cursor", "pointer")
+        
       showAmount(d);
     })
     .on("mouseout", function (d) {
       // Reset the node size on mouseout using a transition
-      d3.select(this).transition().attr("r", linearScale(d.amount));
+      d3.select(this).transition().attr("r", linearScale(d.amount)).style("cursor", "default");
       hideAmount();
     });
 }
@@ -76,7 +78,8 @@ function locationClick(d, i) {
 
   d3.select(`#circle_${i}`).attr("fill", "red");
 
-  drawScatterPlot(d.location);
+  drawCreditCardPlot(d.location);
+  drawLoyaltyCardPlot(d.location);
 }
 
 /**

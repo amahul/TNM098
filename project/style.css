@@ -133,7 +133,7 @@ input[type="checkbox"]:checked:after {
   display: flex;
   align-items: center;
   width: 450px;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 #scatter_plot{

@@ -4,7 +4,7 @@
 function drawDataPoints() {
   console.log("draw data points")
   // Remove all old data points
-  d3.selectAll(".data_point").remove();
+  d3.selectAll(".datapoint").remove();
 
   let locationSize = getLocationSize();
 
@@ -34,20 +34,20 @@ function drawDataPoints() {
 
   // Bind the data to circle elements
   svg
-    .selectAll("circle")
+    .selectAll("datapoint")
     .data(locationSize)
     .enter()
     .append("circle")
     .attr("cx", function (d) {
       return d.x;
     })
-    .attr("class", "circle")
     .attr("cy", function (d) {
       return d.y;
     })
     .attr("r", (d) => linearScale(d.amount))
     .attr("fill", "blue")
     .attr("opacity", 0.5)
+    .attr("class", "datapoint")
     .attr("id", function (d, i) {
       return "circle_" + i;
     })
@@ -60,7 +60,6 @@ function drawDataPoints() {
         .transition()
         .attr("r", linearScale(d.amount) * 1.5)
         .style("cursor", "pointer")
-        
       showAmount(d);
     })
     .on("mouseout", function (d) {
@@ -76,9 +75,9 @@ function drawDataPoints() {
  * @param {*} i - index of circle
  */
 function locationClick(d, i) {
-  d3.selectAll(".circle").attr("fill", "blue");
+  d3.selectAll(".datapoint").attr("fill", "blue");
 
-  d3.select(`#circle_${i}`).attr("fill", "red");
+  d3.select(`#datapoint_${i}`).attr("fill", "red");
 
   drawCreditCardPlot(d.location);
   drawLoyaltyCardPlot(d.location);

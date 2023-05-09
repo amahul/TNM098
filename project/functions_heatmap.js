@@ -1,6 +1,8 @@
 var choosenfirstdate = new Date('2014-01-06T00:00:00')
 var choosenlastdate =  new Date('2014-01-06T23:59:59')
 var choosenID=1
+showCC=true;
+showLC=false;
 
 function readJson(filename) {
   return new Promise((resolve, reject) => {
@@ -19,7 +21,6 @@ function readJson(filename) {
 
 function createSliderDay() {
   const derrive = 300 / (MAX_RANGE-MIN_RANGE);
-  console.log(derrive)
   const choosenMinRange = (MIN_RANGE-MIN_RANGE)*derrive;
   const choosenMaxRange = (MAX_RANGE-MIN_RANGE)*derrive;
   var choosenDay=6
@@ -170,14 +171,10 @@ function createSlidertime() {
     
     choosenlastdate.setHours(choosen2hour)
     choosenlastdate.setMinutes(choosen2minute)
-    console.log(choosen2hour)
-    console.log(choosen2minute)
+
   }
 
-    function updateValues(){
-      
-      console.log(choosenfirstdate)
-      
+    function updateValues(){      
     filterData(choosenfirstdate, choosenlastdate,choosenID);
     }
 }
@@ -236,7 +233,6 @@ function createDropdownMenu() {
 
   selectElement.addEventListener("change", function(event) {
     choosenID = event.target.value;
-    console.log("Selected value:", choosenID);
     filterData(choosenfirstdate, choosenlastdate,choosenID);
   });
 
@@ -257,6 +253,7 @@ function changeCCcheckbox() {
   } else {
     showCC = false;
   }
+  console.log(showCC)
   filterData(choosenfirstdate, choosenlastdate,choosenID);
 }
 

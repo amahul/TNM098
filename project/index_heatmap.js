@@ -4,8 +4,6 @@ var gpsData=[];
 var filteredData=[];
 var filteredDataGPS=[];
 
-var showCC=true;
-var showLC=true;
 // choosenlastDate=MIN_DATE;
 // choosenfirstDate=MAX_DATE;
 
@@ -68,9 +66,6 @@ function filterData(startTime, endTime, id) {
       filteredData = [];
     }
    
-    
-    console.log(filteredData);
-    console.log(filteredDataGPS);
     drawDataPoints();
   
     drawHeatMap();

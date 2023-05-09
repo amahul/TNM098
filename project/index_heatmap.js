@@ -1,45 +1,49 @@
-var ccData = []
-var loyaltyData = []
-var gpsData=[];
-var filteredData=[];
-var filteredDataGPS=[];
+var ccData = [];
+var loyaltyData = [];
+var gpsData = [];
+var filteredData = [];
+var filteredDataGPS = [];
+let cardData = []
 
 // choosenlastDate=MIN_DATE;
 // choosenfirstDate=MAX_DATE;
 
 drawImage();
-getDataAndProceed().then((result) => { 
+getDataAndProceed().then((result) => {
   // Run filterdata after getDataAndProceed done
   filterData(choosenfirstdate, choosenlastdate);
+  
 });
 
 async function getDataAndProceed() {
   try {
-    gpsData = await readJson('./gps.json');
+    gpsData = await readJson("./gps.json");
     ccData = await readJson("./cc_data.json");
     gpsData = await readJson("./gps.json");
     loyaltyData = await readJson("./loyalty_data.json");
 
+    cardData = ccData.concat(loyaltyData)
+
     createSlidertime();
     createSliderDay();
-    createDropdownMenu();  
-
-
+    createDropdownMenu();
   } catch (error) {
     // Handle any errors that may occur
     console.error(error);
   }
 }
 
-
 function filterData(startTime, endTime, id) {
-  
   //console.timeLog(new Date(gpsData[0].Timestamp).getTime())
-    filteredDataGPS= gpsData.filter(item => {
-      const timestamp = parseInt(new Date(item.Timestamp).getTime());
-      //console.log(timestamp) && item.id == id
-      return (timestamp >= startTime.getTime()  && timestamp <= endTime.getTime() && item.id==id)     
-    });
+  filteredDataGPS = gpsData.filter((item) => {
+    const timestamp = parseInt(new Date(item.Timestamp).getTime());
+    //console.log(timestamp) && item.id == id
+    return (
+      timestamp >= startTime.getTime() &&
+      timestamp <= endTime.getTime() &&
+      item.id == id
+    );
+  });
 
       if (showCC && showLC) {
       dummy = ccData.filter((item) => {
@@ -71,6 +75,3 @@ function filterData(startTime, endTime, id) {
     drawHeatMap();
   
 }
-
-
-

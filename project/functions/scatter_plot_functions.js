@@ -9,7 +9,7 @@ function drawCreditCardPlot(location) {
   sp.select("#credit_card").remove();
 
   // Define an array of data points
-  const data = filteredData.filter(
+  const data = cardData.filter(
     (item) => item.location == location && item.last4ccnum != null
   );
 
@@ -101,7 +101,7 @@ function drawLoyaltyCardPlot(location) {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   /** Data functions */
-  const filtered = filteredData.filter(
+  const filtered = cardData.filter(
     (item) => item.location == location && item.loyaltynum != null
   );
 

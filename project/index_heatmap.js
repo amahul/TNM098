@@ -70,9 +70,6 @@ function filterData(startTime, endTime, id) {
     } else {
       filteredData = [];
     }
-   
     drawDataPoints();
-    drawHeatMap();
-    
-  
+    drawHeatMap(); 
 }

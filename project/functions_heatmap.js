@@ -203,13 +203,14 @@ function drawHeatMap(){
   let svg = d3.select("#img_svg");
   d3.selectAll(".heatPoints").remove();
   // Bind the data to circle elements
-  svg.selectAll("circle")
+  svg.selectAll("rect")
     .data(filteredDataGPS)
     .enter()
-    .append("circle")
-    .attr("cx", d =>(d.long-MIN_LONG)*1000*MAPY*1.72+10)
-    .attr("cy", d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47)
-    .attr("r", 2)
+    .append("rect")
+    .attr("x", d =>(d.long-MIN_LONG)*1000*MAPY*1.72+10)
+    .attr("y", d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47)
+    .attr("width", 2)
+    .attr("height", 2)
     .attr("fill", "purple")
     .attr("opacity", "1")
     .attr("class", "heatPoints");

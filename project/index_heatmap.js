@@ -6,22 +6,25 @@ var filteredDataGPS=[];
 
 var showCC=true;
 var showLC=true;
-choosenlastDate=MIN_DATE;
-choosenfirstDate=MAX_DATE;
+// choosenlastDate=MIN_DATE;
+// choosenfirstDate=MAX_DATE;
 
 drawImage();
-getDataAndProceed();
+getDataAndProceed().then((result) => { 
+  // Run filterdata after getDataAndProceed done
+  filterData(choosenfirstdate, choosenlastdate);
+});
 
 async function getDataAndProceed() {
   try {
-    gpsData = await readJson('/gps.json');
+    gpsData = await readJson('./gps.json');
     ccData = await readJson("./cc_data.json");
     gpsData = await readJson("./gps.json");
     loyaltyData = await readJson("./loyalty_data.json");
 
     createSlidertime();
     createSliderDay();
-    createDropdownMenu();
+    createDropdownMenu();  
 
 
   } catch (error) {

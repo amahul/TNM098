@@ -3,7 +3,7 @@
  *
  * @param {*} location
  */
-function drawCreditCardPlot(location) {
+function drawCreditCardPlot(location) {  
   // Remove old scatter plot
   let sp = d3.select("#scatter_plot");
   sp.select("#credit_card").remove();
@@ -12,6 +12,8 @@ function drawCreditCardPlot(location) {
   const data = filteredData.filter(
     (item) => item.location == location && item.last4ccnum != null
   );
+
+  console.log(data)
 
   const width = 1200;
   const height = 500;

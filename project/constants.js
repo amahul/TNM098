@@ -3,7 +3,7 @@ const IMAGE_HEIGHT = 550;
 
 const MIN_RANGE = 6
 //parseInt(new Date('2014-01-06T00:00:00').getTime());
-const MAX_RANGE =19
+const MAX_RANGE = 19
 //parseInt(new Date('2014-01-19T23:59:59').getTime());    
 
 const MAX_DATE = new Date(MAX_RANGE);

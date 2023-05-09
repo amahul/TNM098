@@ -2,6 +2,7 @@
  * Main function to draw circles on the map
  */
 function drawDataPoints() {
+  console.log("draw data points")
   // Remove all old data points
   d3.selectAll(".data_point").remove();
 
@@ -28,6 +29,7 @@ function drawDataPoints() {
     item.y = index.y;
   });
 
+  console.log(locationSize)
   let svg = d3.select("#img_svg");
 
   // Bind the data to circle elements
@@ -97,4 +99,27 @@ function showAmount(d) {
 
 function hideAmount() {
   d3.select("#amount_text").style("display", "none");
+}
+
+/**
+ * Function to get size of data point
+ * @returns 
+ */
+function getLocationSize() {
+  let res = [];
+  console.log(filteredData)
+  filteredData.map((item) => {
+    let index = res.findIndex((obj) => obj.location === item.location);
+
+    if (index !== -1) {
+      res[index].amount += 1;
+    } else {
+      res.push({
+        location: item.location,
+        amount: 1,
+      });
+    }
+  });
+
+  return res;
 }

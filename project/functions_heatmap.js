@@ -1,5 +1,5 @@
-var choosenfirstdate= new Date('2014-01-06T00:00:00')
-var choosenlastdate=  new Date('2014-01-06T23:59:59')
+var choosenfirstdate = new Date('2014-01-06T00:00:00')
+var choosenlastdate =  new Date('2014-01-06T23:59:59')
 var choosenID=1
 
 function readJson(filename) {
@@ -270,21 +270,3 @@ function changeLCcheckbox() {
   filterData(choosenfirstdate, choosenlastdate,choosenID);
 }
 
-function getLocationSize() {
-  let res = [];
-
-  filteredData.map((item) => {
-    let index = res.findIndex((obj) => obj.location === item.location);
-
-    if (index !== -1) {
-      res[index].amount += 1;
-    } else {
-      res.push({
-        location: item.location,
-        amount: 1,
-      });
-    }
-  });
-
-  return res;
-}

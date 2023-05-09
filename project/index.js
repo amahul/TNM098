@@ -57,10 +57,9 @@ function filterData(datacc, datalc, startTime, endTime) {
   } else {
     filteredData = [];
   }
-
-  drawDataPoints();
-
-  console.log(filteredData);
+ 
+  drawDataPoints()
+console.log(filteredData);
 }
 
 function countPlaces(data) {

@@ -15,17 +15,68 @@ body {
   flex-direction: column;
 }
 
-#slider {
-  height: 20px;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+#menuToRight{
+    flex-direction: row;   
+   
 }
 
-#slider_parent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 450px;
+.right_menu{ background-color: rgb(195, 195, 141);
+        display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 550px;
+     width: 100%;
+     flex-direction: column;
+}
+
+#slider{
+    height: 20px;    
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.for_text{
+    height: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-end;
+    flex-direction: row;
+    width: 320px; 
+    
+margin: 0px;
+position: relative;
+}
+
+#choosen_day{
+margin: 0px;
+position: relative;
+}
+
+#choosen_first_time{
+    margin: 0px;
+    position: relative;
+    }
+
+#choosen_last_time{
+    margin: 0px;
+    position: relative;
+        }
+
+
+
+#slider_day{
+    height: 20px;    
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#slider_parent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 450px;
 }
 
 #min_choosen {

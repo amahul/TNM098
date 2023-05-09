@@ -1,8 +1,10 @@
 const IMAGE_WIDTH = 980;
 const IMAGE_HEIGHT = 550;
 
-const MIN_RANGE = parseInt(new Date("2014-01-06T00:00:00").getTime());
-const MAX_RANGE = parseInt(new Date("2014-01-19T23:59:59").getTime());
+const MIN_RANGE = 6
+//parseInt(new Date('2014-01-06T00:00:00').getTime());
+const MAX_RANGE =19
+//parseInt(new Date('2014-01-19T23:59:59').getTime());    
 
 const MAX_DATE = new Date(MAX_RANGE);
 const MIN_DATE = new Date(MIN_RANGE);
@@ -217,5 +219,6 @@ const MIN_LAT = 36.04802098;
 const DIFFLONG = (MAX_LONG - MIN_LONG) * 1000;
 const DIFFLAT = (MAX_LAT - MIN_LAT) * 1000;
 
-const MAPX = IMAGE_HEIGHT / DIFFLAT;
-const MAPY = IMAGE_WIDTH / DIFFLONG;
+
+const MAPX= IMAGE_WIDTH/DIFFLAT;
+const MAPY= IMAGE_HEIGHT/DIFFLONG;

@@ -1,5 +1,6 @@
 var choosenfirstdate= new Date('2014-01-06T00:00:00')
 var choosenlastdate=  new Date('2014-01-06T23:59:59')
+var choosenID=1
 
 function readJson(filename) {
   return new Promise((resolve, reject) => {
@@ -69,7 +70,7 @@ function createSliderDay() {
   }
 
     function updateValues(){
-    filterData(choosenfirstdate, choosenlastdate);
+    filterData(choosenfirstdate, choosenlastdate,choosenID);
     }
 }
 
@@ -176,12 +177,10 @@ function createSlidertime() {
     function updateValues(){
       
       console.log(choosenfirstdate)
-      filterData(choosenfirstdate, choosenlastdate);
+      
+    filterData(choosenfirstdate, choosenlastdate,choosenID);
     }
 }
-
-
-
 
 function drawImage(){
   // Create an SVG element
@@ -208,14 +207,84 @@ function drawHeatMap(){
   d3.selectAll(".heatPoints").remove();
   // Bind the data to circle elements
   svg.selectAll("circle")
-    .data(filteredData)
+    .data(filteredDataGPS)
     .enter()
     .append("circle")
     .attr("cx", d =>(d.long-MIN_LONG)*1000*MAPY*1.72+10)
     .attr("cy", d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47)
     .attr("r", 2)
     .attr("fill", "purple")
-    .attr("opacity", "0.1")
+    .attr("opacity", "1")
     .attr("class", "heatPoints");
 }
 
+function createDropdownMenu() {
+  // Create a select element
+  let selectElement = document.createElement("select");
+  const element1_time = document.getElementById("drop_down");
+
+  // Create options from 1 to 20
+  for (let i = 1; i <= 35; i++) {
+    // Create an option element
+    let optionElement = document.createElement("option");
+    optionElement.value = i;
+    optionElement.text = i;
+
+    // Append the option element to the select element
+    selectElement.appendChild(optionElement);
+  }
+
+  selectElement.addEventListener("change", function(event) {
+    choosenID = event.target.value;
+    console.log("Selected value:", choosenID);
+    filterData(choosenfirstdate, choosenlastdate,choosenID);
+  });
+
+
+  // Add the select element to the document body or any desired container
+  element1_time.appendChild(selectElement);
+}
+          
+//from new
+
+
+
+function changeCCcheckbox() {
+  var checkBox = document.getElementById("CC_checkbox");
+
+  if (checkBox.checked == true) {
+    showCC = true;
+  } else {
+    showCC = false;
+  }
+  filterData(choosenfirstdate, choosenlastdate,choosenID);
+}
+
+function changeLCcheckbox() {
+  var checkBoxLC = document.getElementById("LC_checkbox");
+  if (checkBoxLC.checked == true) {
+    showLC = true;
+  } else {
+    showLC = false;
+  }
+  filterData(choosenfirstdate, choosenlastdate,choosenID);
+}
+
+function getLocationSize() {
+  let res = [];
+
+  filteredData.map((item) => {
+    let index = res.findIndex((obj) => obj.location === item.location);
+
+    if (index !== -1) {
+      res[index].amount += 1;
+    } else {
+      res.push({
+        location: item.location,
+        amount: 1,
+      });
+    }
+  });
+
+  return res;
+}

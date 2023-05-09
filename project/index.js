@@ -14,7 +14,7 @@ getDataAndProceed().then((result) => {
   console.log(result); // logs "done"
 
   // Run filterdata after getDataAndProceed done
-  filterData([], [], MIN_RANGE, MAX_RANGE);
+  filterData( MIN_RANGE, MAX_RANGE);
 });
 
 async function getDataAndProceed() {
@@ -32,7 +32,8 @@ async function getDataAndProceed() {
   }
 }
 
-function filterData(datacc, datalc, startTime, endTime) {
+function filterData( startTime, endTime) {
+
   if (showCC && showLC) {
     dummy = ccData.filter((item) => {
       const timestamp = parseInt(new Date(item.timestamp).getTime());
@@ -58,7 +59,9 @@ function filterData(datacc, datalc, startTime, endTime) {
     filteredData = [];
   }
  
-  drawDataPoints()
+  drawDataPoints();
+  
+  drawDataPoints();
 console.log(filteredData);
 }
 

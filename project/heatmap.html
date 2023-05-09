@@ -12,6 +12,9 @@
     <script defer src="./constants.js"></script>
     <script defer src="./index_heatmap.js"></script>
     
+    <script defer src="./functions/location_points.js"></script>
+    <script defer src="./functions/scatter_plot_functions.js"></script>
+    
     
     <title>VAST 2021 MP2</title>
   </head>
@@ -43,6 +46,24 @@
 
         <div id="slider" style="padding:1px" >
         </div>
+
+        <p> Car ID </p>
+        <div id="drop_down"> </div>
+
+        <div class="checkboxes">
+          <input
+            type="checkbox"
+            id="CC_checkbox"
+            onclick="changeCCcheckbox()"
+            checked
+          />
+          <h3>Credit Card</h3>
+          <input
+            type="checkbox"
+            id="LC_checkbox"
+            onclick="changeLCcheckbox()"
+            checked
+          />
 
       </div>
     </div>

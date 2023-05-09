@@ -1,7 +1,8 @@
 var ccData = []
 var loyaltyData = []
 var gpsData=[];
-var filteredData=[]
+var filteredData=[];
+var filteredDataGPS=[];
 
 var showCC=true;
 var showLC=true;
@@ -14,8 +15,14 @@ getDataAndProceed();
 async function getDataAndProceed() {
   try {
     gpsData = await readJson('/gps.json');
+    ccData = await readJson("./cc_data.json");
+    gpsData = await readJson("./gps.json");
+    loyaltyData = await readJson("./loyalty_data.json");
+
     createSlidertime();
     createSliderDay();
+    createDropdownMenu();
+
 
   } catch (error) {
     // Handle any errors that may occur
@@ -24,20 +31,48 @@ async function getDataAndProceed() {
 }
 
 
-function filterData(startTime, endTime) {
+function filterData(startTime, endTime, id) {
   
-  
-  console.log(startTime)
-  console.log(endTime)
   //console.timeLog(new Date(gpsData[0].Timestamp).getTime())
-    filteredData= gpsData.filter(item => {
+    filteredDataGPS= gpsData.filter(item => {
       const timestamp = parseInt(new Date(item.Timestamp).getTime());
-      //console.log(timestamp)
-      return (timestamp >= startTime.getTime()  && timestamp <= endTime.getTime() && item.id == 20)     
+      //console.log(timestamp) && item.id == id
+      return (timestamp >= startTime.getTime()  && timestamp <= endTime.getTime() && item.id==id)     
     });
 
-    drawHeatMap()
+      if (showCC && showLC) {
+      dummy = ccData.filter((item) => {
+        const timestamp = parseInt(new Date(item.timestamp).getTime());
+        return timestamp >= startTime && timestamp <= endTime;
+      });
+      dummy2 = loyaltyData.filter((item) => {
+        const timestamp = parseInt(new Date(item.timestamp).getTime());
+        return timestamp >= startTime && timestamp <= endTime;
+      });
+  
+      filteredData = dummy.concat(dummy2);
+    } else if (showCC) {
+      filteredData = ccData.filter((item) => {
+        const timestamp = parseInt(new Date(item.timestamp).getTime());
+        return timestamp >= startTime && timestamp <= endTime;
+      });
+    } else if (showLC) {
+      filteredData = loyaltyData.filter((item) => {
+        const timestamp = parseInt(new Date(item.timestamp).getTime());
+        return timestamp >= startTime && timestamp <= endTime;
+      });
+    } else {
+      filteredData = [];
+    }
+   
     
+    console.log(filteredData);
+    console.log(filteredDataGPS);
+    drawDataPoints();
+  
+    drawHeatMap();
+  
 }
+
 
 

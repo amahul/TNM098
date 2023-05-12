@@ -222,3 +222,43 @@ const DIFFLAT = (MAX_LAT - MIN_LAT) * 1000;
 
 const MAPX= IMAGE_WIDTH/DIFFLAT;
 const MAPY= IMAGE_HEIGHT/DIFFLONG;
+
+
+const colors = [
+  "#FF0000", // Red
+  "#00FF00", // Green
+  "#0000FF", // Blue
+  "#FFFF00", // Yellow
+  "#FF00FF", // Magenta
+  "#00FFFF", // Cyan
+  "#FFA500", // Orange
+  "#800080", // Purple
+  "#008000", // Dark Green
+  "#000080", // Navy
+  "#FFC0CB", // Pink
+  "#FF4500", // Orange Red
+  "#008080", // Teal
+  "#800000", // Maroon
+  "#FFFFE0", // Light Yellow
+  "#C0C0C0", // Silver
+  "#808080", // Gray
+  "#FFFFFF", // White
+  "#000000", // Black
+  "#F0FFF0", // Honeydew
+  "#FF1493", // Deep Pink
+  "#FFD700", // Gold
+  "#ADFF2F", // Green Yellow
+  "#D2691E", // Chocolate
+  "#DAA520", // Golden Rod
+  "#2F4F4F", // Dark Slate Gray
+  "#00CED1", // Dark Turquoise
+  "#8A2BE2", // Blue Violet
+  "#A52A2A", // Brown
+  "#7FFF00", // Chartreuse
+  "#BA55D3", // Medium Orchid
+  "#1E90FF", // Dodger Blue
+  "#B22222", // Fire Brick
+  "#F5DEB3", // Wheat
+  "#228B22", // Forest Green
+  "#FF6347"  // Tomato
+];

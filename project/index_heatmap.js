@@ -28,6 +28,7 @@ async function getDataAndProceed() {
     createSlidertime();
     createSliderDay();
     createDropdownMenu();
+    
   } catch (error) {
     // Handle any errors that may occur
     console.error(error);
@@ -39,11 +40,19 @@ function filterData(startTime, endTime, id) {
   filteredDataGPS = gpsData.filter((item) => {
     const timestamp = parseInt(new Date(item.Timestamp).getTime());
     //console.log(timestamp) && item.id == id
+    if(id==0){
+      return (
+        timestamp >= startTime.getTime() &&
+        timestamp <= endTime.getTime() 
+      );}
+      else{
+
     return (
       timestamp >= startTime.getTime() &&
       timestamp <= endTime.getTime() &&
       item.id == id
     );
+  }
   });
 
       if (showCC && showLC) {

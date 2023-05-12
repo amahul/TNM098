@@ -156,6 +156,17 @@ input[type="checkbox"]:checked:after {
   display: none;
 }
 
+#tooltipheat {
+  position: absolute;
+  border: 1px solid gray;
+  min-width: 40px;
+  min-height: 20px;
+  padding: 7px;
+  background-color: greenyellow;
+  border-radius: 7px;
+  display: none;
+}
+
 #amount_text {
   background-color: white;
   border: 1px solid black;

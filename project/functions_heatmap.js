@@ -1,6 +1,6 @@
 var choosenfirstdate = new Date('2014-01-06T00:00:00')
 var choosenlastdate =  new Date('2014-01-06T23:59:59')
-var choosenID=1
+var choosenID=0
 showCC=true;
 showLC=false;
 
@@ -200,6 +200,8 @@ function drawImage(){
 
 
 function drawHeatMap(){
+  
+  console.log(filteredDataGPS);
   let svg = d3.select("#img_svg");
   d3.selectAll(".heatPoints").remove();
   // Bind the data to circle elements
@@ -209,27 +211,76 @@ function drawHeatMap(){
     .append("rect")
     .attr("x", d =>(d.long-MIN_LONG)*1000*MAPY*1.72+10)
     .attr("y", d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47)
-    .attr("width", 2)
-    .attr("height", 2)
-    .attr("fill", "purple")
+    .attr("width", 3)
+    .attr("fill", d=> colors[d.id-1])
+    .attr("height", 3)
     .attr("opacity", "1")
-    .attr("class", "heatPoints");
+    .attr("class", "heatPoints")
+    .on("mouseover", function (d) {
+      const elements = svg.selectAll(`[fill="${colors[d.id - 1]}"]`);
+      elements.attr('width', 20);
+      elements.attr('width', 20);
+      showPopupheat(
+        d,
+        (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47,
+        d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47
+      );
+      
+    })
+    .on("mouseout", function (d) {
+      const elements = svg.selectAll(`[fill="${colors[d.id - 1]}"]`);
+      elements.attr('width', 3);
+      elements.attr('height', 3);
+      hidePopupheat();
+    });
+    ;
 }
+
+/**
+ * Function for clicking on a point in the scatter plot
+ * @param {*} d
+ */
+function showPopupheat(d, x, y) {
+  var popup = d3.select("#tooltipheat");
+
+  popup
+    .style("display", "block")
+    .style("left", x + 20 + "px")
+    .style("top", y - 50 + "px");
+
+  popup.append("text").text("id: " + d.id );
+}
+
+/**
+ * Hide popup on mouseout
+ */
+function hidePopupheat() {
+  var popup = d3.select("#tooltipheat");
+  popup.selectAll("*").remove();
+
+  popup.style("display", "none");
+}
+
 
 function createDropdownMenu() {
   // Create a select element
   let selectElement = document.createElement("select");
   const element1_time = document.getElementById("drop_down");
-console.log(carData)
+
+  let optionElement = document.createElement("option");
+  optionElement.value = 0;
+  optionElement.text = "all";
+  selectElement.appendChild(optionElement);
+
   // Create options from 1 to 20
   for (let i = 1; i <= 35; i++) {
     // Create an option element
-    let optionElement = document.createElement("option");
+    optionElement = document.createElement("option");
     optionElement.value = i;
     optionElement.text = i;
-
     // Append the option element to the select element
-    selectElement.appendChild(optionElement);}
+    selectElement.appendChild(optionElement);
+  }
 
   selectElement.addEventListener("change", function(event) {
     choosenID = event.target.value;

@@ -16,12 +16,10 @@ drawImage();
 getDataAndProceed().then((result) => {
   // Run filterdata after getDataAndProceed done
   filterData(choosenfirstdate, choosenlastdate);
-  filterAndSaveData();
-=======
+  //filterAndSaveData();
   findConnection();
 
 });
-
 
 
 async function getDataAndProceed() {

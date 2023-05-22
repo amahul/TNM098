@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script defer src="./functions_heatmap.js"></script>
+    <script defer src="./constants.js"></script>
+    <script defer src="./functions/connect_cards.js"></script>
+    <script defer src="./index_heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/sankey.js"></script>
+
+    <script defer src="./functions/location_points.js"></script>
+    <script defer src="./functions/scatter_plot_functions.js"></script>
+
+    <title>VAST 2021 MP2</title>
+  </head>
+  <body>
+    <div class="meny">
+      <a href="index.html">Scatterplot</a>
+      <a href="heatmap.html">Heatmap</a>
+    </div>
+    <div id="wrapper"><div id="chart-container"></div></div>
+  </body>
+  <style>
+    .link {
+      fill: none;
+      stroke: #000;
+      stroke-opacity: 0.2;
+    }
+    .link:hover {
+      stroke-opacity: 0.5;
+    }
+  </style>
+</html>

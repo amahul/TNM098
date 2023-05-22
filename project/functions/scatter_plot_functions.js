@@ -61,13 +61,16 @@ function drawCreditCardPlot(location) {
     .attr("r", 5)
     .attr("fill", "steelblue")
     .on("mouseover", function (d) {
+      d3.select(this).transition().style("cursor", "pointer");
+
       showPopup(
         d,
         xScale(new Date(d.timestamp).getDate()),
         yScale(timeParser(getTimeOfDay(new Date(d.timestamp))))
-      );
+      );      
     })
     .on("mouseout", function (d) {
+      d3.select(this).transition().style("cursor", "default");
       hidePopup();
     });
 
@@ -172,10 +175,10 @@ function drawLoyaltyCardPlot(location) {
       return height - y(d.y);
     })
     .on("mouseover", function (d) {
-      d3.select(this).attr("fill", "lightblue");
+      d3.select(this).attr("fill", "lightblue").style("cursor", "pointer");
     })
     .on("mouseout", function (d) {
-      d3.select(this).attr("fill", "steelblue");
+      d3.select(this).attr("fill", "steelblue").style("cursor", "default");
     });
 
   // Label axes

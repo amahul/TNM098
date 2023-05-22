@@ -4,19 +4,23 @@ var carData =[];
 var gpsData = [];
 var filteredData = [];
 var filteredDataGPS = [];
-let cardData = []
+let cardData = [];
+
 
 // choosenlastDate=MIN_DATE;
 // choosenfirstDate=MAX_DATE;
+// Usage example
 
 drawImage();
+
 getDataAndProceed().then((result) => {
   // Run filterdata after getDataAndProceed done
   filterData(choosenfirstdate, choosenlastdate);
-  
+  filterAndSaveData();
 });
 
 async function getDataAndProceed() {
+  
   try {
     carData = await readJson("./car_ass.json");
     ccData = await readJson("./cc_data.json");

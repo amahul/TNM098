@@ -6,7 +6,6 @@ var filteredData = [];
 var filteredDataGPS = [];
 let cardData = [];
 
-
 // choosenlastDate=MIN_DATE;
 // choosenfirstDate=MAX_DATE;
 // Usage example
@@ -18,12 +17,9 @@ getDataAndProceed().then((result) => {
   filterData(choosenfirstdate, choosenlastdate);
   //filterAndSaveData();
   findConnection();
-
 });
 
-
 async function getDataAndProceed() {
-  
   try {
     carData = await readJson("./car_ass.json");
     ccData = await readJson("./cc_data.json");
@@ -57,30 +53,30 @@ function filterData(startTime, endTime, id) {
     }
   });
 
-  if (showCC && showLC) {
-    dummy = ccData.filter((item) => {
-      const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
-    });
-    dummy2 = loyaltyData.filter((item) => {
-      const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
-    });
+  // if (showCC && showLC) {
+  //   dummy = ccData.filter((item) => {
+  //     const timestamp = parseInt(new Date(item.timestamp).getTime());
+  //     return timestamp >= startTime && timestamp <= endTime;
+  //   });
+  //   dummy2 = loyaltyData.filter((item) => {
+  //     const timestamp = parseInt(new Date(item.timestamp).getTime());
+  //     return timestamp >= startTime && timestamp <= endTime;
+  //   });
 
-    filteredData = dummy.concat(dummy2);
-  } else if (showCC) {
-    filteredData = ccData.filter((item) => {
-      const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
-    });
-  } else if (showLC) {
-    filteredData = loyaltyData.filter((item) => {
-      const timestamp = parseInt(new Date(item.timestamp).getTime());
-      return timestamp >= startTime && timestamp <= endTime;
-    });
-  } else {
-    filteredData = [];
-  }
+  //   filteredData = dummy.concat(dummy2);
+  // } else if (showCC) {
+  filteredData = ccData.filter((item) => {
+    const timestamp = parseInt(new Date(item.timestamp).getTime());
+    return timestamp >= startTime && timestamp <= endTime;
+  });
+  // } else if (showLC) {
+  //   filteredData = loyaltyData.filter((item) => {
+  //     const timestamp = parseInt(new Date(item.timestamp).getTime());
+  //     return timestamp >= startTime && timestamp <= endTime;
+  //   });
+  // } else {
+  //   filteredData = [];
+  // }
   drawDataPoints();
   drawHeatMap();
 }

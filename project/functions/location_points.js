@@ -2,7 +2,7 @@
  * Main function to draw circles on the map
  */
 function drawDataPoints() {
-  console.log("draw data points")
+  console.log("draw data points");
   // Remove all old data points
   d3.selectAll(".datapoint").remove();
   d3.selectAll("circle_").remove();
@@ -37,7 +37,6 @@ function drawDataPoints() {
     .enter()
     .append("circle")
     .attr("cx", function (ddata) {
-      
       return ddata.x;
     })
     .attr("cy", function (ddata) {
@@ -49,16 +48,15 @@ function drawDataPoints() {
     .attr("fill", "blue")
     .attr("opacity", 0.5)
     .attr("class", "datapoint")
-    .attr("id", function ( i) {
+    .attr("id", function (i) {
       return "circle_" + i;
     })
     .on("mouseover", function (ddata) {
-
       // Increase the node size on hover using a transition
       d3.select(this)
         .transition()
         .attr("r", linearScale(ddata.amount) * 1.5)
-        .style("cursor", "pointer")
+        .style("cursor", "pointer");
       showAmount(ddata);
     })
     .on("click", function (ddata, i) {
@@ -66,11 +64,12 @@ function drawDataPoints() {
     })
     .on("mouseout", function (d) {
       // Reset the node size on mouseout using a transition
-      d3.select(this).transition().attr("r", linearScale(d.amount)).style("cursor", "default");
+      d3.select(this)
+        .transition()
+        .attr("r", linearScale(d.amount))
+        .style("cursor", "default");
       hideAmount();
     });
-
-    
 }
 
 /**
@@ -83,7 +82,7 @@ function locationClick(d, i) {
 
   d3.select(`#circle_${i}`).attr("fill", "red");
 
-  drawCreditCardPlot(d.location);  
+  drawCreditCardPlot(d.location);
 }
 
 /**
@@ -92,20 +91,30 @@ function locationClick(d, i) {
  * @param {*} i - index of circle
  */
 function showAmount(d) {
-  d3.select("#amount_text")
-    .text("Amount: " + d.amount)
+  var popup = d3.select("#tooltipheat");
+
+  popup
     .style("display", "block")
     .style("left", d.x + 20 + "px")
     .style("top", d.y - 50 + "px");
+
+  popup.append("text").text("Transactions: " + d.amount);
 }
 
+/**
+ * Hide popup on mouseout
+ */
+
 function hideAmount() {
-  d3.select("#amount_text").style("display", "none");
+  var popup = d3.select("#tooltipheat");
+  popup.selectAll("*").remove();
+
+  popup.style("display", "none");
 }
 
 /**
  * Function to get size of data point
- * @returns 
+ * @returns
  */
 function getLocationSize() {
   let res = [];

@@ -164,7 +164,7 @@ function showPopup(d, x, y) {
     .style("left", x + 20 + "px")
     .style("top", y - 50 + "px");
 
-  popup.append("text").text("Card: " + d.last4ccnum + "\n Price: " + d.price);
+  popup.append("text").text("Card: " + d.last4ccnum + "\n Price: " + d.price + "\n Time: " + d.timestamp.split(" ")[1]);
 }
 
 /**

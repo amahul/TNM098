@@ -31,6 +31,26 @@ function findConnection() {
     }
   });
 
+  // creditCardAndCar.forEach((match) => {
+  //   nodes.push({ node: i, name: match.source })
+    
+  //   const foundCc = nodes.find((obj) => obj.name === match.source);
+    
+  //   console.log(foundCc)
+  //   links.push({
+  //     source: i,
+  //     target: foundCc.node,
+  //     value: 1,
+  //   });
+
+  //   i += 1;
+
+  // });
+  
+  console.log(nodes)
+  console.log(links)
+  
+
   ccData.map((cc) => {
     const foundCc = nodes.find((obj) => obj.name === cc.last4ccnum);
 
@@ -80,11 +100,7 @@ function drawSankey(data) {
     .attr("height", height);
 
   // Set the sankey diagram properties
-  var sankey = d3
-    .sankey()
-    .nodeWidth(45)
-    .nodePadding(0)
-    .size([width, height])
+  var sankey = d3.sankey().nodeWidth(45).nodePadding(0).size([width, height]);
 
   sankey.nodes(data.nodes).links(data.links).layout(1);
 

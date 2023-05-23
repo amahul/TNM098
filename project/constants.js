@@ -265,7 +265,6 @@ const colors = [
 
 
 const creditCardAndCar =[
-  
   {"source": "1", "target": "9551"},
   {"source": "3", "target": "9635"},
   {"source": "4", "target": "7688"},

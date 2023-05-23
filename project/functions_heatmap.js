@@ -211,15 +211,15 @@ function drawHeatMap(){
     .append("rect")
     .attr("x", d =>(d.long-MIN_LONG)*1000*MAPY*1.72+10)
     .attr("y", d => (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47)
-    .attr("width", 3)
+    .attr("width", 4)
     .attr("fill", d=> colors[d.id-1])
-    .attr("height", 3)
-    .attr("opacity", "1")
+    .attr("height", 4)
+    .attr("opacity", 0.4)
     .attr("class", "heatPoints")
     .on("mouseover", function (d) {
       const elements = svg.selectAll(`[fill="${colors[d.id - 1]}"]`);
-      elements.attr('width', 20);
-      elements.attr('width', 20);
+      elements.attr('width', 10);
+      elements.attr('height', 10);
       showPopupheat(
         d,
         (IMAGE_WIDTH+50)/2-(d.lat-MIN_LAT)*1000*MAPX*0.47,
@@ -229,8 +229,8 @@ function drawHeatMap(){
     })
     .on("mouseout", function (d) {
       const elements = svg.selectAll(`[fill="${colors[d.id - 1]}"]`);
-      elements.attr('width', 3);
-      elements.attr('height', 3);
+      elements.attr('width', 4);
+      elements.attr('height', 4);
       hidePopupheat();
     });
     ;
@@ -242,13 +242,14 @@ function drawHeatMap(){
  */
 function showPopupheat(d, x, y) {
   var popup = d3.select("#tooltipheat");
+  console.log(d)
 
   popup
     .style("display", "block")
     .style("left", x + 20 + "px")
     .style("top", y - 50 + "px");
 
-  popup.append("text").text("id: " + d.id );
+  popup.append("text").text("id: " + d.id + " Time: " + d.Timestamp.split(" ")[1] );
 }
 
 /**

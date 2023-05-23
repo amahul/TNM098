@@ -119,7 +119,7 @@ function hideAmount() {
 function getLocationSize() {
   let res = [];
 
-  ccData.map((item) => {
+  filteredData.map((item) => {
     let index = res.findIndex((obj) => obj.location === item.location);
 
     if (index !== -1) {

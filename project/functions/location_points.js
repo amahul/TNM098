@@ -69,6 +69,8 @@ function drawDataPoints() {
       d3.select(this).transition().attr("r", linearScale(d.amount)).style("cursor", "default");
       hideAmount();
     });
+
+    
 }
 
 /**
@@ -81,8 +83,7 @@ function locationClick(d, i) {
 
   d3.select(`#circle_${i}`).attr("fill", "red");
 
-  drawCreditCardPlot(d.location);
-  drawLoyaltyCardPlot(d.location);
+  drawCreditCardPlot(d.location);  
 }
 
 /**
@@ -109,7 +110,7 @@ function hideAmount() {
 function getLocationSize() {
   let res = [];
 
-  filteredData.map((item) => {
+  ccData.map((item) => {
     let index = res.findIndex((obj) => obj.location === item.location);
 
     if (index !== -1) {

@@ -17,7 +17,7 @@ function findConnection() {
     }
   });
 
-  // Find all unique cc cards
+  // Find all unique loyalty cards
   loyaltyData.forEach((card) => {
     const { loyaltynum } = card;
 
@@ -62,8 +62,6 @@ function findConnection() {
       }
     });
   });
-  console.log(links);
-  console.log(nodes);
 
   let data = { nodes, links };
   drawSankey(data);
@@ -71,7 +69,7 @@ function findConnection() {
 
 function drawSankey(data) {
   const width = 800;
-  const height = 900;
+  const height = 1300;
 
   const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -82,7 +80,11 @@ function drawSankey(data) {
     .attr("height", height);
 
   // Set the sankey diagram properties
-  var sankey = d3.sankey().nodeWidth(36).nodePadding(290).size([width, height]);
+  var sankey = d3
+    .sankey()
+    .nodeWidth(45)
+    .nodePadding(0)
+    .size([width, height])
 
   sankey.nodes(data.nodes).links(data.links).layout(1);
 
@@ -95,15 +97,11 @@ function drawSankey(data) {
     .append("path")
     .attr("class", "link")
     .attr("d", sankey.link())
-    // .style("stroke-width", function (d) {
-    //   return Math.max(1, d.dy);
-    // })
-    .attr("fill", (d, i) => colorScale(i))
-    .attr("stroke", "#000")
     .style("stroke-width", (d) => d.value)
-    // .sort(function (a, b) {
-    //   return b.dy - a.dy;
-    // });
+    .style("stroke", (d, i) => colorScale(i))
+    .sort(function (a, b) {
+      return b.dy - a.dy;
+    });
 
   // add in the nodes
   var node = svg
@@ -131,23 +129,15 @@ function drawSankey(data) {
   // add the rectangles for the nodes
   node
     .append("rect")
-    .attr("height", function (d) {
-      return d.value;
-    })
+    .attr("height", (d) => d.value + 10)
     .attr("width", sankey.nodeWidth())
-    .style("fill", function (d, i) {
-      return colorScale(i);
-    })
-    .style("stroke", function (d, i) {
-      return colorScale(i);
-    })
+    .style("fill", "lightgray")
+    .style("stroke", "black")
     // Add hover text
-    // .append("title")
-    // .text(function (d) {
-    //   return d.name
-    // });
-    .append("title") // Append <title> element
-    .text((d) => d.name); // Set the text of the title
+    .append("title")
+    .text(function (d) {
+      return d.name + "\n" + "There is " + d.value + " stuff in this node";
+    });
 
   // add in the title for the nodes
   node
@@ -157,7 +147,7 @@ function drawSankey(data) {
       return d.dy / 2;
     })
     .attr("dy", ".35em")
-    .attr("text-anchor", "end")
+    .attr("text-anchor", "start")
     .attr("transform", null)
     .text(function (d) {
       return d.name;
@@ -165,8 +155,8 @@ function drawSankey(data) {
     .filter(function (d) {
       return d.x < width / 2;
     })
-    .attr("x", 6 + sankey.nodeWidth())
-    .attr("text-anchor", "start");
+    .attr("x", sankey.nodeWidth())
+    .attr("text-anchor", "end");
 
   // the function for moving the nodes
   function dragmove(d) {

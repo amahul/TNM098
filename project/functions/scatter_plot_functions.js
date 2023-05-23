@@ -3,16 +3,18 @@
  *
  * @param {*} location
  */
-function drawCreditCardPlot(location) {  
+function drawCreditCardPlot(location) {
   // Remove old scatter plot
   let sp = d3.select("#scatter_plot");
   sp.select("#credit_card").remove();
+  sp.select("h1").remove();
+
+  sp.append("h1").text("Credit card transactions: " + location);
 
   // Define an array of data points
   const data = cardData.filter(
     (item) => item.location == location && item.last4ccnum != null
   );
-
 
   const width = 1200;
   const height = 500;
@@ -24,6 +26,7 @@ function drawCreditCardPlot(location) {
   const yValues = data.map((d) =>
     timeParser(getTimeOfDay(new Date(d.timestamp)))
   );
+  const prices = data.map((d) => d.price);
 
   // Set up scales
   const xScale = d3
@@ -50,8 +53,33 @@ function drawCreditCardPlot(location) {
     .attr("id", "credit_card")
     .attr("height", height);
 
+  // Extract the minimum and maximum values from the dataset
+  var minValue = d3.min(prices);
+  var maxValue = d3.max(prices);
+
+  // Define the color scale using the minimum and maximum values
+  var colorScale = d3
+    .scaleLinear()
+    .domain([minValue, maxValue])
+    .range(["red", "blue"]); // Specify the desired color range
+
+  // Calculate the value for the rectangle
+  var value = 30;
+
+  // Determine the fill color based on the color scale
+  var fillColor = colorScale(value);
+
+  // Draw the rectangle
+  sp.append("rect")
+    .attr("id", "test")
+    .attr("x", 30)
+    .attr("y", 40)
+    .attr("width", width)
+    .attr("height", height)
+    .style("fill", fillColor);
+
   // Add circles
-  svg
+  var circles = svg
     .selectAll("circle")
     .data(data)
     .enter()
@@ -59,18 +87,19 @@ function drawCreditCardPlot(location) {
     .attr("cx", (d) => xScale(new Date(d.timestamp).getDate()))
     .attr("cy", (d) => yScale(timeParser(getTimeOfDay(new Date(d.timestamp)))))
     .attr("r", 5)
-    .attr("fill", "steelblue")
+    .attr("fill", (d) => colorScale(d.price))
+    .attr("opacity", 0.7)
     .on("mouseover", function (d) {
-      d3.select(this).transition().style("cursor", "pointer");
+      d3.select(this).transition().attr("r", 8).style("cursor", "pointer");
 
       showPopup(
         d,
         xScale(new Date(d.timestamp).getDate()),
         yScale(timeParser(getTimeOfDay(new Date(d.timestamp))))
-      );      
+      );
     })
     .on("mouseout", function (d) {
-      d3.select(this).transition().style("cursor", "default");
+      d3.select(this).transition().attr("r", 5).style("cursor", "default");
       hidePopup();
     });
 
@@ -80,127 +109,47 @@ function drawCreditCardPlot(location) {
     .attr("transform", `translate(0, ${height - margin.bottom})`)
     .call(d3.axisBottom(xScale));
 
+  svg
+    .append("text")
+    .attr("class", "x-axis-label")
+    .attr("x", width / 2) // Position in the middle of the x-axis
+    .attr("y", height - 10) // Position below the x-axis
+    .attr("text-anchor", "middle") // Align in the middle horizontally
+    .text("Day in January 2014");
+
+  // Define the y-axis label
+  svg
+    .append("text")
+    .attr("class", "y-axis-label")
+    .attr("transform", "rotate(-90)") // Rotate the label vertically
+    .attr("x", -height / 2) // Position in the middle of the y-axis
+    .attr("y", 20) // Position above the y-axis
+    .attr("text-anchor", "middle") // Align in the middle horizontally
+    .text("Time of day");
+
   // Add y-axis
   svg.append("g").attr("transform", `translate(${margin.left}, 0)`).call(yAxis);
-}
 
-function drawLoyaltyCardPlot(location) {
-  // Remove old scatter plot
-  let sp = d3.select("#scatter_plot");
-  sp.select("#loyalty_card").remove();
+  // Zoom functionality
 
-  // Set up SVG canvas and axes
-  var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  var width = 960 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  // Create the zoom behavior
+  var zoom = d3
+    .zoom()
+    .scaleExtent([1, 10]) // Set the minimum and maximum scale factor
+    .on("zoom", zoomed);
 
-  var svg = sp
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("id", "loyalty_card")
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // Attach the zoom behavior to the SVG element
+  svg.call(zoom);
 
-  /** Data functions */
-  const filtered = cardData.filter(
-    (item) => item.location == location && item.loyaltynum != null
-  );
+  // Define the zoom event handler function
+  function zoomed() {
+    var newYScale = d3.event.transform.rescaleY(yScale);
 
-  // Use map() to create an array of values for the specified property
-  var values = filtered.map(function (d) {
-    return d.timestamp;
-  });
-
-  // Use reduce() to count the number of occurrences of each value
-  var mergedData = values.reduce(function (acc, value) {
-    acc[value] = (acc[value] || 0) + 1;
-    return acc;
-  }, {});
-
-  let data = [];
-  for (const key in mergedData) {
-    data.push({ x: key, y: Number(mergedData[key]) });
-  }
-
-  /** End data functions */
-  var x = d3
-    .scaleBand()
-    .domain(
-      data.map(function (d) {
-        return d.x;
-      })
-    )
-    .range([0, width])
-    .padding(0.1);
-  var y = d3
-    .scaleLinear()
-    .domain([
-      0,
-      d3.max(
-        data.map(function (d) {
-          return d.y;
-        })
-      ),
-    ])
-    .range([height, 0]);
-
-  var xAxis = d3.axisBottom(x);
-  var yAxis = d3.axisLeft(y);
-
-  svg
-    .append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-  svg.append("g").attr("class", "y axis").call(yAxis);
-
-  // Draw rectangles for data points
-  svg
-    .selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("x", function (d) {
-      return x(d.x);
-    })
-    .attr("y", function (d) {
-      return y(d.y);
-    })
-    .attr("fill", "steelblue")
-    .attr("width", x.bandwidth())
-    .attr("height", function (d) {
-      return height - y(d.y);
-    })
-    .on("mouseover", function (d) {
-      d3.select(this).attr("fill", "lightblue").style("cursor", "pointer");
-    })
-    .on("mouseout", function (d) {
-      d3.select(this).attr("fill", "steelblue").style("cursor", "default");
+    // Update the circles' positions based on the new scales
+    circles.attr("cy", function (d) {
+      return newYScale(timeParser(getTimeOfDay(new Date(d.timestamp))));
     });
-
-  // Label axes
-  svg
-    .append("text")
-    .attr("class", "label")
-    .attr(
-      "transform",
-      "translate(" + width / 2 + " ," + (height + margin.bottom) + ")"
-    )
-    .style("text-anchor", "middle")
-    .text("X Label");
-
-  svg
-    .append("text")
-    .attr("class", "label")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - height / 2)
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Y Label");
+  }
 }
 
 /**

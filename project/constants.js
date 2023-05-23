@@ -262,3 +262,27 @@ const colors = [
   "#228B22", // Forest Green
   "#FF6347"  // Tomato
 ];
+
+
+const creditCardAndCar =[
+  
+  {"source": "1", "target": "9551"},
+  {"source": "3", "target": "9635"},
+  {"source": "4", "target": "7688"},
+  {"source": "5", "target": "6899"},
+  {"source": "6", "target": "7253"},
+  {"source": "7", "target": "2540"},
+  {"source": "8", "target": "7889"},
+  {"source": "12", "target": "7108"},
+  {"source": "15", "target": "3853"},
+  {"source": "16", "target": "7354"},
+  {"source": "18", "target": "9617"},
+  {"source": "19", "target": "6895"},
+  {"source": "21", "target": "9405"},
+  {"source": "24", "target": "4434"},
+  {"source": "26", "target": "1310"},
+  {"source": "29", "target": "3547"},
+  {"source": "30", "target": "6901"},
+  {"source": "33", "target": "9683"},
+  {"source": "34", "target": "4795"}
+]

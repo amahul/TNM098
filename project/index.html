@@ -29,8 +29,8 @@
 
     <div class="wrapper" id="menuToRight">
       <div class="canvas"></div>
-      
-      <div id="tooltipheat"></div>      
+
+      <div id="tooltipheat"></div>
       <!-- <img src="./data/MC2-tourist.jpg" width="50%" objectFit="contain"> -->
       <div class="right_menu">
         <p>Day</p>
@@ -43,36 +43,50 @@
 
         <div class="for_text" id="choosen_day_div" style="padding: 1px">
           <p id="choosen_first_time"></p>
-
         </div>
 
         <div id="slider" style="padding: 1px"></div>
-        <div class="for_text"  style="padding: 1px">
-          
+        <div class="for_text" style="padding: 1px">
           <p id="choosen_last_time"></p>
         </div>
 
-
-        <p>Car ID</p>
-        <div id="drop_down"></div>
-        <div id="aboutCarID"> 
-          <div class="car_info">
-          <p style="font-weight: bold;"> id:  </p>
-          <p id="car_id"> 1 </p></div>
-      
-        <div class="car_info">
-          <p style="font-weight: bold;"> name: </p>
-          <p id="car_name"> Nils Calixto </p></div>
-     
-        <div class="car_info">
-          <p style="font-weight: bold;"> Employment Type: </p>
-          <p id="car_type"> Information Technology </p></div>
-      
-        <div class="car_info">
-          <p style="font-weight: bold;"> Employment Title: </p>
-          <p id="car_title"> IT Helpdesk</p></div>
+        <div class="checkboxes">
+          <h3 style="margin-right: 10px;">Show cars</h3>
+          <input
+            type="checkbox"
+            id="cars_checkbox"
+            onclick="changeCarsCheckbox()"
+            style="margin-right: 30px;"
+          />
+          
+          <h3 style="margin-right: 10px;">Car ID</h3>
+          <div id="drop_down"></div>
         </div>
-<!-- 
+
+       
+        <div id="aboutCarID">
+          <div class="car_info">
+            <p style="font-weight: bold">Id:</p>
+            <p id="car_id"></p>
+          </div>
+
+          <div class="car_info">
+            <p style="font-weight: bold">Name:</p>
+            <p id="car_name"></p>
+          </div>
+
+          <div class="car_info">
+            <p style="font-weight: bold">Employment Type:</p>
+            <p id="car_type"></p>
+          </div>
+
+          <div class="car_info">
+            <p style="font-weight: bold">Employment Title:</p>
+            <p id="car_title"></p>
+          </div>
+        </div>
+        
+        <!-- 
         <div class="checkboxes">
           
           <h3>Credit Card</h3>

@@ -132,24 +132,24 @@ function drawCreditCardPlot(location) {
 
   // Zoom functionality
 
-  // Create the zoom behavior
-  var zoom = d3
-    .zoom()
-    .scaleExtent([1, 10]) // Set the minimum and maximum scale factor
-    .on("zoom", zoomed);
+  // // Create the zoom behavior
+  // var zoom = d3
+  //   .zoom()
+  //   .scaleExtent([1, 10]) // Set the minimum and maximum scale factor
+  //   .on("zoom", zoomed);
 
-  // Attach the zoom behavior to the SVG element
-  svg.call(zoom);
+  // // Attach the zoom behavior to the SVG element
+  // svg.call(zoom);
 
-  // Define the zoom event handler function
-  function zoomed() {
-    var newYScale = d3.event.transform.rescaleY(yScale);
+  // // Define the zoom event handler function
+  // function zoomed() {
+  //   var newYScale = d3.event.transform.rescaleY(yScale);
 
-    // Update the circles' positions based on the new scales
-    circles.attr("cy", function (d) {
-      return newYScale(timeParser(getTimeOfDay(new Date(d.timestamp))));
-    });
-  }
+  //   // Update the circles' positions based on the new scales
+  //   circles.attr("cy", function (d) {
+  //     return newYScale(timeParser(getTimeOfDay(new Date(d.timestamp))));
+  //   });
+  // }
 }
 
 /**

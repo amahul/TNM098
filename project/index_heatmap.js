@@ -78,7 +78,7 @@ function filterData(startTime, endTime, id) {
   //   filteredData = [];
   // }
   drawDataPoints();
-  if(showCars){
-  drawHeatMap();
-}
+  if (showCars) {
+    drawHeatMap();
+  }
 }
